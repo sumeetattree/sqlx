@@ -120,6 +120,23 @@ services:
         command: >
             -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 
+    postgres_14_client_ssl:
+        build:
+            context: .
+            dockerfile: postgres/Dockerfile
+            args:
+                VERSION: 14
+        ports:
+            - 5432
+        environment:
+            POSTGRES_DB: sqlx
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_INITDB_ARGS: --auth-host=trust
+        volumes:
+            - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        command: >
+            -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key -c ssl_ca_file=/var/lib/postgresql/ca.crt -c hba_file=/var/lib/postgresql/pg_hba.conf
+
     postgres_13:
         build:
             context: .
@@ -139,7 +156,7 @@ services:
         command: >
             -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 
-    postgres_13_cert:
+    postgres_13_client_ssl:
         build:
             context: .
             dockerfile: postgres/Dockerfile
@@ -149,10 +166,8 @@ services:
             - 5432
         environment:
             POSTGRES_DB: sqlx
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-            POSTGRES_HOST_AUTH_METHOD: scram-sha-256
-            POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_INITDB_ARGS: --auth-host=trust
         volumes:
             - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
         command: >
@@ -177,7 +192,7 @@ services:
         command: >
             -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 
-    postgres_12_cert:
+    postgres_12_client_ssl:
         build:
             context: .
             dockerfile: postgres/Dockerfile
@@ -187,10 +202,8 @@ services:
             - 5432
         environment:
             POSTGRES_DB: sqlx
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-            POSTGRES_HOST_AUTH_METHOD: scram-sha-256
-            POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_INITDB_ARGS: --auth-host=trust
         volumes:
             - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
         command: >
@@ -215,6 +228,23 @@ services:
         command: >
             -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 
+    postgres_11_client_ssl:
+        build:
+            context: .
+            dockerfile: postgres/Dockerfile
+            args:
+                VERSION: 11
+        ports:
+            - 5432
+        environment:
+            POSTGRES_DB: sqlx
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_INITDB_ARGS: --auth-host=trust
+        volumes:
+            - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        command: >
+            -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key -c ssl_ca_file=/var/lib/postgresql/ca.crt -c hba_file=/var/lib/postgresql/pg_hba.conf
+
     postgres_10:
         build:
             context: .
@@ -234,7 +264,7 @@ services:
         command: >
             -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 
-    postgres_10_cert:
+    postgres_10_client_ssl:
         build:
             context: .
             dockerfile: postgres/Dockerfile
@@ -244,9 +274,8 @@ services:
             - 5432
         environment:
             POSTGRES_DB: sqlx
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
             POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_INITDB_ARGS: --auth-host=trust
         volumes:
             - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
         command: >
@@ -271,7 +300,7 @@ services:
         command: >
             -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
 
-    postgres_9_6_cert:
+    postgres_9_6_client_ssl:
         build:
             context: .
             dockerfile: postgres/Dockerfile
@@ -281,45 +310,8 @@ services:
             - 5432
         environment:
             POSTGRES_DB: sqlx
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-            POSTGRES_HOST_AUTH_METHOD: md5
-        volumes:
-            - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
-        command: >
-            -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key -c ssl_ca_file=/var/lib/postgresql/ca.crt -c hba_file=/var/lib/postgresql/pg_hba.conf
-
-    postgres_9_5:
-        build:
-            context: .
-            dockerfile: postgres/Dockerfile
-            args:
-                VERSION: 9.6
-        ports:
-            - 5432
-        environment:
-            POSTGRES_DB: sqlx
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-            POSTGRES_HOST_AUTH_METHOD: md5
-        volumes:
-            - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
-        command: >
-            -c ssl=on -c ssl_cert_file=/var/lib/postgresql/server.crt -c ssl_key_file=/var/lib/postgresql/server.key
-
-    postgres_9_5_cert:
-        build:
-            context: .
-            dockerfile: postgres/Dockerfile
-            args:
-                VERSION: 9.5
-        ports:
-            - 5432
-        environment:
-            POSTGRES_DB: sqlx
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-            POSTGRES_HOST_AUTH_METHOD: password
+            POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_INITDB_ARGS: --auth-host=trust
         volumes:
             - "./postgres/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
         command: >
