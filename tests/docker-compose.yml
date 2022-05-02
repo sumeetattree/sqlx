@@ -19,6 +19,21 @@ services:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
 
+    mysql_8_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mysql:8.0.27
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: sqlx
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
     mysql_5_7:
         image: mysql:5.7
         volumes:
@@ -30,6 +45,21 @@ services:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
 
+    mysql_5_7_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mysql:5.7
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: sqlx
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
     mysql_5_6:
         image: mysql:5.6
         volumes:
@@ -40,6 +70,21 @@ services:
             MYSQL_ROOT_HOST: '%'
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
+
+    mysql_5_6_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mysql:5.6
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: sqlx
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
     #
     # MariaDB 10.6, 10.5, 10.4, 10.3, 10.2
@@ -56,6 +101,20 @@ services:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
 
+    mariadb_10_6_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mariadb:10.6
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MARIADB_DATABASE: sqlx
+            MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+
     mariadb_10_5:
         image: mariadb:10.5
         volumes:
@@ -65,6 +124,20 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
+
+    mariadb_10_5_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mariadb:10.5
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MARIADB_DATABASE: sqlx
+            MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
 
     mariadb_10_4:
         image: mariadb:10.4
@@ -76,6 +149,20 @@ services:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
 
+    mariadb_10_4_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mariadb:10.4
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MARIADB_DATABASE: sqlx
+            MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+
     mariadb_10_3:
         image: mariadb:10.3
         volumes:
@@ -86,6 +173,20 @@ services:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
 
+    mariadb_10_3_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mariadb:10.3
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MARIADB_DATABASE: sqlx
+            MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+
     mariadb_10_2:
         image: mariadb:10.2
         volumes:
@@ -95,6 +196,20 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: sqlx
+
+    mariadb_10_2_client_ssl:
+        build:
+            context: .
+            dockerfile: mysql/Dockerfile
+            args:
+                IMAGE: mariadb:10.2
+        volumes:
+            - "./mysql/setup.sql:/docker-entrypoint-initdb.d/setup.sql"
+        ports:
+            - 3306
+        environment:
+            MARIADB_DATABASE: sqlx
+            MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
 
     #
     # PostgreSQL 14.x, 13.x, 12.x, 11.x 10.x, 9.6.x
